@@ -46,27 +46,23 @@ Grafo *GRAFOconstroi(int num_v) {
 }
 
 void GRAFOinsere_aresta(Grafo *g, Aresta a){
-    g->matriz[a.v1][a.v2] = 1;
-    g->matriz[a.v2][a.v1] = 1;
+    if(g->matriz[a.v1][a.v2] == 0 && a.v1 != a.v2){
+        g->matriz[a.v1][a.v2] = 1;
+        g->matriz[a.v2][a.v1] = 1;
+        g->num_a++;
+    }
 }
 
 void GRAFOremove_aresta(Grafo *g, Aresta a){
-    g->matriz[a.v1][a.v2] = 0;
-    g->matriz[a.v2][a.v1] = 0;
+    if(g->matriz[a.v1][a.v2] != 0){
+        g->matriz[a.v1][a.v2] = 0;
+        g->matriz[a.v2][a.v1] = 0;
+        g->num_a--;
+    }
 }
 
 int GRAFOget_num_aresta(Grafo *g){
-    int count = 0;
-    for (int i = 0; i < g->num_v; i++)
-    {
-        for (int j = 0; j < g->num_v; j++)
-        {
-            if(g->matriz[i][j] == 1){
-                count++;
-            }
-        }
-    }
-    return count/2;
+    return g->num_a;
 }
 
 int GRAFOget_num_vertice(Grafo *g){
@@ -74,18 +70,18 @@ int GRAFOget_num_vertice(Grafo *g){
 }
 
 void GRAFOimprime(Grafo *g){
-    for (int i = 0; i < g->num_v; i++)
-    {
-        for (int j = 0; j < g->num_v; j++)
-        {
-            printf("%d ", g->matriz[i][j]);
+    for (int i = 0; i < g->num_v; i++){
+        printf("%d: ", i);
+        for (int j = 0; j < g->num_v; j++){
+            if (g->matriz[i][j] == 1){
+                printf("%d ", j);
+            }
         }
         printf("\n");
     }
 }
 
 void GRAFOdestroi(Grafo *g) {
-    
     for (int i = 0; i < g->num_v; i++){
         free(g->matriz[i]);
     }
