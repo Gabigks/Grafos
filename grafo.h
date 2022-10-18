@@ -1,12 +1,3 @@
-/*
- * Tarefa de laboratorio 00_a - Pilha
- *
- * GEN254 - Grafos - 2022/2
- *
- * Nome:      XXXX
- * Matricula: XXXX
- */
-
 #ifndef GRAFO_H
 
 #define GRAFO_H
@@ -16,18 +7,32 @@
 
 typedef struct grafo Grafo;
 
-Grafo *GRAFOconstroi();
+/** Constroi um grafo simples que possui o numero de vertices recebido por
+ *  parametro e que nao possui arestas
+ */
+Grafo *GRAFOconstroi(int num_vertices);
 
-void GRAFOinsere_aresta(Grafo *g, Aresta a);
+int GRAFOnum_vertices(Grafo *g);
 
-void GRAFOremove_aresta(Grafo *g, Aresta a);
+int GRAFOnum_arestas(Grafo *g);
 
-int GRAFOget_num_aresta(Grafo *g);
+bool GRAFOtem_aresta(Grafo *g, Aresta e);
 
-int GRAFOget_num_vertice(Grafo *g);
+/** Insere uma aresta no grafo caso a aresta ainda nao exista no grafo e nao
+ *  seja um laco
+ */
+void GRAFOinsere_aresta(Grafo *g, Aresta e);
 
-void GRAFOimprime(Grafo *g);
+/** Remove uma aresta do grafo caso a aresta exista no grafo
+ */
+void GRAFOremove_aresta(Grafo *g, Aresta e);
 
 void GRAFOdestroi(Grafo *g);
 
-#endif /* PILHA_H */
+bool GRAFOcaminho(Grafo *g, int v, int w);
+
+int GRAFOconexo(Grafo *g);
+
+int GRAFOciclo(Grafo *g);
+
+#endif /* GRAFO_H */
